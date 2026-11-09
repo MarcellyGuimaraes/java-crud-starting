@@ -74,17 +74,26 @@ public class Main {
             return;
         }
 
-        System.out.print("Descrição: ");
+        Gasto atual = gastos.get(posicao);
+
+        System.out.print("Descrição (" + atual.descricao() + "): ");
         String descricao = scanner.nextLine();
+        if (descricao.isBlank()) {
+            descricao = atual.descricao();
+        }
 
-        System.out.print("Valor: ");
-        double valor = Double.parseDouble(scanner.nextLine());
+        System.out.print("Valor (" + atual.valor() + "): ");
+        String valorTexto = scanner.nextLine();
+        double valor = valorTexto.isBlank() ? atual.valor() : Double.parseDouble(valorTexto);
 
-        System.out.print("Categoria: ");
+        System.out.print("Categoria (" + atual.categoria() + "): ");
         String categoria = scanner.nextLine();
-
+        if (categoria.isBlank()) {
+            categoria = atual.categoria();
+        }
 
         gastos.set(posicao, new Gasto(id, descricao, valor, categoria));
+        System.out.println("Gasto atualizado!");
     }
 
     static void remover(Scanner scanner, List<Gasto> gastos) {
